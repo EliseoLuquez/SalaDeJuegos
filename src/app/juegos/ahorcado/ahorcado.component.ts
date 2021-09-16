@@ -58,7 +58,7 @@ export class AhorcadoComponent implements OnInit {
       if(letra.toLowerCase() == element){
         console.log('letra correcta');
         console.log(element);
-        this.palabraEnGuiones = this.replaceAt(index*2, element);
+        this.palabraEnGuiones = this.replaceAt(index*2, element.toLocaleUpperCase());
        // this.palabraEnGuiones = this.palabraEnGuiones.replace(, element);
         console.log(this.palabraEnGuiones);
         coincidencias++;
@@ -71,7 +71,10 @@ export class AhorcadoComponent implements OnInit {
       
       console.log(this.errores);
       this.cambiarImagen();
-      
+    }
+
+    if(this.palabraEnGuiones.indexOf('_') < 0){
+      this.mensaje = "Ganaste!!!";
     }
 
     
