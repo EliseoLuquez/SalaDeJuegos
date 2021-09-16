@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "lab4-f7591": {
+      "hosting": {
+        "SalaDeJuegos": [
+          "lab4-f7591"
+        ]
+      }
+    }
+  }
+}

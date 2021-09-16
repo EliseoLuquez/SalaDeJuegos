@@ -36,8 +36,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -66,12 +66,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "SalaDeJuegos:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "SalaDeJuegos:build:production"
-            },
-            "development": {
-              "browserTarget": "SalaDeJuegos:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -98,6 +98,10 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

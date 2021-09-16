@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="../../../assets/ahorcado/ahorcado.jpg">
+
+<h1 id="titulo">Ahorcado</h1>
+
+<div id="ahorcado">
+  <img id="horca" src="../../../assets/ahorcado/ahorcado.jpg">
+</div>
+<div id="mensaje">
+  <h1>{{mensaje}}</h1>
+</div>
+<div  id="empezar">
+  <button (click)="empezar()">Empezar</button>
+</div>
+
+
+      <h1 class="my-0 font-weight-normal" id="palabraEnGuiones">{{palabraEnGuiones}}</h1>
+
+      <h1 class="card-title pricing-card-title"><small class="text-muted"></small></h1>
+      <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4"></h1>
+        <h3>Introduce una letra</h3>
+        <div class="row">
+            <div class="col-3" *ngFor="let letra of arrayLetras">
+                <button (click)="onLetra(letra.nombre)">{{letra.nombre}}</button>
+
+              
+            </div>
+      </div>
+    </div>
+
+

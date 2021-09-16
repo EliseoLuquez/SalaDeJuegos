@@ -1,0 +1,30 @@
+{
+    "cartas":[
+    {"elemento": "Basto", "numero": "1"},
+    {"elemento": "Basto", "numero": "2"},
+    {"elemento": "Basto", "numero": "3"},
+    {"elemento": "Basto", "numero": "4"},
+    {"elemento": "Basto", "numero": "5"},
+    {"elemento": "Basto", "numero": "6"},
+    {"elemento": "Basto", "numero": "7"},
+    {"elemento": "Basto", "numero": "8"},
+    {"elemento": "Basto", "numero": "9"},
+    {"elemento": "Basto", "numero": "10"},
+    {"elemento": "Basto", "numero": "11"},
+    {"elemento": "Basto", "numero": "12"},
+    {"elemento": "Oro", "numero": "1"},
+    {"elemento": "Oro", "numero": "2"},
+    {"elemento": "Oro", "numero": "3"},
+    {"elemento": "Oro", "numero": "4"},
+    {"elemento": "Oro", "numero": "5"},
+    {"elemento": "Oro", "numero": "6"},
+    {"elemento": "Oro", "numero": "7"},
+    {"elemento": "Oro", "numero": "8"},
+    {"elemento": "Oro", "numero": "9"},
+    {"elemento": "Oro", "numero": "10"},
+    {"elemento": "Oro", "numero": "11"},
+    {"elemento": "Oro", "numero": "12"}]
+
+
+
+}
