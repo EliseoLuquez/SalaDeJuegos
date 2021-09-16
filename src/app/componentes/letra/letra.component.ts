@@ -16,15 +16,15 @@ export class LetraComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.crearAbecedario();
+    //this.crearAbecedario();
   }
 
   
-  crearAbecedario(){
-    this.letras.forEach(element => {
-      let instancia = element;
-      this.seCreaAbecedario.emit(instancia);
-      console.log(instancia);
-    });
-  }
+  // crearAbecedario(){
+  //   this.letras.forEach(element => {
+  //     let instancia = element;
+  //     this.seCreaAbecedario.emit(instancia);
+  //     console.log(instancia);
+  //   });
+  // }
 }
