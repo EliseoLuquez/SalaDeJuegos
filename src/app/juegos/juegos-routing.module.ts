@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../guards/auth.guard';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
 import { MayormenorComponent } from './mayormenor/mayormenor.component';
 
 const routes: Routes = [
-  {path: 'mayormenor', component: MayormenorComponent},
-  {path: 'ahorcado', component: AhorcadoComponent},
-  {path:'', redirectTo:'mayormenor', pathMatch: 'full'},
+  {path: 'mayormenor', component: MayormenorComponent,  canActivate: [AuthGuard]},
+  {path: 'ahorcado', component: AhorcadoComponent,  canActivate: [AuthGuard]},
 ];
 
 @NgModule({

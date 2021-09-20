@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class AhorcadoComponent implements OnInit {
   errores!: number;
   mensaje!: string;
 
-  constructor() { }
+  constructor(public router: Router, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.crearAbecedario();

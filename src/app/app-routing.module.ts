@@ -2,21 +2,19 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './componentes/error/error.component';
 import { HomeComponent } from './componentes/home/home.component';
-import { LoginComponent } from './componentes/login/login.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
-import { RegistroComponent } from './componentes/registro/registro.component';
 import { AuthGuard } from './guards/auth.guard';
 import { JuegosModule } from './juegos/juegos.module';
+import { IngresoModule } from './ingreso/ingreso.module';
 
 const routes: Routes = [
-  {path:'home', component:HomeComponent, canActivate: [AuthGuard]},
-  {path:'login', component:LoginComponent},
-  {path:'registro', component:RegistroComponent},
-  {path:'quienSoy', component:QuienSoyComponent},
+  {path:'home', component:HomeComponent},
+  {path:'ingreso', loadChildren: () => import('./ingreso/ingreso.module').then(m => IngresoModule)},
+  {path:'quienSoy', component:QuienSoyComponent, canActivate: [AuthGuard]},
   {path:'chat', component:QuienSoyComponent, canActivate: [AuthGuard]},
   //{path:'**', component:ErrorComponent},
-  {path:'', redirectTo:'login', pathMatch: 'full'},
-  {path: 'juegos', loadChildren: () => import('./juegos/juegos.module').then(m => JuegosModule) },
+  {path:'', redirectTo:'home', pathMatch: 'full'},
+  {path: 'juegos', loadChildren: () => import('./juegos/juegos.module').then(m => JuegosModule), canActivate: [AuthGuard]},
 
 ];
 

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
+import { User } from 'src/app/shared/user';
 
 @Component({
   selector: 'app-home',
@@ -11,15 +13,17 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private authSvc: AuthService, private router: Router, private afAuth: AngularFireAuth) { }
+  usuario!: User;
+  logueado: boolean = false;
+
+  constructor(public authSvc: AuthService, public router: Router, private ls: LocalStorageService) { }
 
   ngOnInit(): void {
-  }
-
-  onLogout(){
-    console.log('Logout!');
-    this.afAuth.signOut();
-    this.router.navigate(['login']);
-    
+  //   console.log(this.authSvc.usuario.logueado);
+  //   this.usuario = this.authSvc.checkIfUserIsLogged()
+  //   console.log(this.usuario.email);
+  //     if(this.usuario.email == this.ls.get('UserMail')){
+  //       this.logueado = true;
+  //   }
   }
 }

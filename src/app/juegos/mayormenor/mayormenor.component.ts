@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { IngresoModule } from 'src/app/ingreso/ingreso.module';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -63,9 +65,11 @@ export class MayormenorComponent implements OnInit {
     {"elemento": "Copa", "numero": 12},
   ];
 
-  constructor(private router: Router) { }
+  constructor(public router: Router, public authService: AuthService) { }
 
   ngOnInit(): void {
+    console.log(this.authService.usuario.logueado);
+    
   }
 
   empezar(){

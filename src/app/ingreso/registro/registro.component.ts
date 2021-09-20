@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../service/auth.service';
-import { User } from '../../shared/user';
-
+import { AuthService } from 'src/app/service/auth.service';
+import { User } from 'src/app/shared/user';
 
 @Component({
   selector: 'app-registro',
@@ -10,12 +9,13 @@ import { User } from '../../shared/user';
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent implements OnInit {
+
   email: string = "";
   password: string = "";
   error: any;
   user: User = new User();
 
-  constructor(private authSvc: AuthService, private router: Router) { }
+  constructor(public authSvc: AuthService, public router: Router) { }
 
   ngOnInit(): void {
   }
@@ -25,11 +25,8 @@ export class RegistroComponent implements OnInit {
     try{
       this.user.email = this.email;
       this.user.password = this.password;
-      const user = await this.authSvc.onRegister(this.user);
-      if(user){
-        console.log('registro exitoso');
-        this.router.navigate(['home']);
-      }
+      await this.authSvc.onRegister(this.user);
+      console.log('registro exitoso');
     }
     catch(error){
       this.error = error;
@@ -40,3 +37,4 @@ export class RegistroComponent implements OnInit {
   }
 
 }
+
