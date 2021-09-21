@@ -32,7 +32,9 @@ export class MenuPrincipalComponent implements OnInit {
     this.authSvc.onLogout();
     this.logueado = false;
   }
-
+  goPreguntados(){
+    this.router.navigate(['juegos/preguntados']);
+  }
   goMayorMenor(){
     this.router.navigate(['juegos/mayormenor']);
   }

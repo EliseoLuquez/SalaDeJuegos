@@ -64,6 +64,9 @@ export class MayormenorComponent implements OnInit {
     {"elemento": "Copa", "numero": 11},
     {"elemento": "Copa", "numero": 12},
   ];
+  mensaje!: string;
+  puntos!: number;
+  empezado: boolean = false;
 
   constructor(public router: Router, public authService: AuthService) { }
 
@@ -80,12 +83,20 @@ export class MayormenorComponent implements OnInit {
       //this.cartasAux[0].splice(i, 1);
       //console.log(this.cartasAux[i]);
       delete this.cartasAux[0]['i'];
+      this.puntos = 0;
+      this.empezado = true;
   }
 
   proximaCarta(){
-    var i = Math.floor(Math.random()* this.cartasAux.length);
-    this.cartaSiguiente.elemento = this.cartasAux[i].elemento;
-    this.cartaSiguiente.numero = this.cartasAux[i].numero;
+    if(this.cartasAux.length > 0){
+      var i = Math.floor(Math.random()* this.cartasAux.length);
+      this.cartaSiguiente.elemento = this.cartasAux[i].elemento;
+      this.cartaSiguiente.numero = this.cartasAux[i].numero;
+      delete this.cartasAux[i];
+    }
+    else{
+      this.mensaje = "Ganaste!";
+    }
   }
  
   cartaMayor(){
@@ -93,13 +104,17 @@ export class MayormenorComponent implements OnInit {
     
     if(this.carta.numero <= this.cartaSiguiente.numero){
       console.log(this.carta.numero + '<=' + this.cartaSiguiente.numero);
-      
+      this.puntos += 10;
     }
     else{
       console.log('Perdiste!');
+      this.mensaje = "Perdiste!";
+      this.puntos = 0;
+      this.empezado = false;
     }
     this.carta.numero = this.cartaSiguiente.numero;
     this.carta.elemento = this.cartaSiguiente.elemento;
+    
     
     
   }
@@ -111,12 +126,17 @@ export class MayormenorComponent implements OnInit {
 
     if(this.carta.numero >= this.cartaSiguiente.numero){
       console.log(this.carta.numero + '>=' + this.cartaSiguiente.numero);
+      this.puntos += 10;
     }
     else{
       console.log('Perdiste!');
+      this.mensaje = "Perdiste!";
+      this.puntos = 0;
+      this.empezado = false;
     }
     this.carta.numero = this.cartaSiguiente.numero;
     this.carta.elemento = this.cartaSiguiente.elemento;
+    
     
   }
 

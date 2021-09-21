@@ -2,9 +2,13 @@
     <div class="card-header">
       <h4 class="my-0 font-weight-normal"></h4>
     </div>
-    <div class="card-body">
+    <div class="card-body col-3 align-self-center">
       <h1 class="card-title pricing-card-title"><small class="text-muted"></small></h1>
-      <button type="button" class="btn btn-lg btn-block btn-outline-primary" (click)='empezar()'>Empezar</button>
+      <button type="button" class="btn btn-lg btn-block btn-outline-primary" id="empezar" [hidden]="empezado" (click)='empezar()'>Empezar</button>
+      <br>
+      <label>{{mensaje}}</label> 
+      <input [ngModel]="puntos">
+      <br>
       <input type="text" [(ngModel)]="carta.elemento">
       <input type="text" [(ngModel)]="carta.numero">
       

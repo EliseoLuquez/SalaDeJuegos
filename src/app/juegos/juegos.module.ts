@@ -4,12 +4,14 @@ import { JuegosRoutingModule } from './juegos-routing.module';
 import { FormsModule } from '@angular/forms';
 import { MayormenorComponent } from './mayormenor/mayormenor.component';
 import { AhorcadoComponent } from './ahorcado/ahorcado.component';
+import { PreguntadosComponent } from './preguntados/preguntados.component';
 
 
 @NgModule({
   declarations: [
     MayormenorComponent,
-    AhorcadoComponent
+    AhorcadoComponent,
+    PreguntadosComponent
   ],
   imports: [
     CommonModule,
