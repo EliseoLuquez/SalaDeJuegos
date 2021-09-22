@@ -50,5 +50,8 @@ export class MenuPrincipalComponent implements OnInit {
   goHome(){
     this.router.navigate(['home']);
   }
+  goJuegoPropio(){
+    this.router.navigate(['juegos/juegoPropio']);
+  }
 
 }
