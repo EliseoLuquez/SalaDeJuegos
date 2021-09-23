@@ -1,13 +1,25 @@
-<h1>Preguntados</h1>
-<input type="button" (click)="onEmpezar()" [hidden]="empezar" value="Empezar">
-<div *ngIf="empezar">
-    <img id="personajeImg" src="{{img}}">
-    
-    <p>¿Qué personaje de los Simpson es?</p>
-    <label>{{mensaje}}</label>
-    <div *ngFor="let psj of arrayPersonajes">
-        <button (click)="correcto(psj.character)">{{psj.character}}</button>
-    </div>
+<h1 class="text-center">PREGUNTADOS</h1>
+<input type="button" class="btn btn-success btn-block" (click)="onEmpezar()" [hidden]="empezar" value="Empezar">
+<div class="containaer" *ngIf="empezar">
+    <div class="row">
+        <div class="col-12">
+            <img id="imgPsj" src="{{img}}">
+        </div>
+        <div class="containaer">
+            <div class="row">
+                <div class="col-12">
+                    <p>¿Qué personaje de los Simpson es?</p>
+                    <label>{{mensaje}}</label>
+                    <div *ngFor="let psj of arrayPersonajes">
+                        <div class="col-12">
+                            <button (click)="correcto(psj.character)">{{psj.character}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
 </div>
 
 

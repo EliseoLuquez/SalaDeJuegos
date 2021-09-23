@@ -41,18 +41,27 @@ export class PreguntadosComponent implements OnInit {
   cargarPersonajes(){
     this.arrayPersonajes = [];
 
-    let repetido1 = false;
-    let repetido2 = false;
-    let repetido3 = false;
+    this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
+      // console.log(personaje[0]);
+      // for (let index = 0; index < this.arrayPersonajes.length; index++) {
+      //   if(personaje[0].character != this.arrayPersonajes[index].character){
+      //     this.arrayPersonajes.push(personaje[0]);
+      //   }
+      // }
+      this.arrayPersonajes.push(personaje[0]);
+    },
+    error => {
+      console.log(error)}
+    );
 
     this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
-      console.log(personaje[0]);
-      for (let index = 0; index < this.arrayPersonajes.length; index++) {
-        if(personaje[0].character != this.arrayPersonajes[index].character){
-          this.arrayPersonajes.push(personaje[0]);
-        }
-        repetido1 = true;
-      }
+      // console.log(personaje[0]);
+      // for (let index = 0; index < this.arrayPersonajes.length; index++) {
+      //   if(personaje[0].character != this.arrayPersonajes[index].character){
+      //     this.arrayPersonajes.push(personaje[0]);
+      //   }
+      // }
+      this.arrayPersonajes.push(personaje[0]);
     },
     error => {
       console.log(error)}
@@ -60,23 +69,12 @@ export class PreguntadosComponent implements OnInit {
 
     this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
       console.log(personaje[0]);
-      for (let index = 0; index < this.arrayPersonajes.length; index++) {
-        if(personaje[0].character != this.arrayPersonajes[index].character){
-          this.arrayPersonajes.push(personaje[0]);
-        }
-      }
-    },
-    error => {
-      console.log(error)}
-    );
-
-    this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
-      console.log(personaje[0]);
-      for (let index = 0; index < this.arrayPersonajes.length; index++) {
-        if(personaje[0].character != this.arrayPersonajes[index].character){
-          this.arrayPersonajes.push(personaje[0]);
-        }
-      }
+      // for (let index = 0; index < this.arrayPersonajes.length; index++) {
+      //   if(personaje[0].character != this.arrayPersonajes[index].character){
+      //     this.arrayPersonajes.push(personaje[0]);
+      //   }
+      // }
+      this.arrayPersonajes.push(personaje[0]);
     },
     error => {
       console.log(error)}
@@ -132,6 +130,6 @@ export class PreguntadosComponent implements OnInit {
   async onEmpezar(){
     this.empezar = true;
     this.traerPersonaje();
-    this.validarRepetido(this.personaje.character);
+    //this.validarRepetido(this.personaje.character);
   }
 }
