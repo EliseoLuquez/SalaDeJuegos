@@ -9,15 +9,15 @@
         <a class="py-2 d-none d-md-inline-block" href="ingreso/login">Login</a>
       </ng-template>
       <ng-template [ngIf]="logueado">
-        <a class="py-2 d-none d-md-inline-block" (click)="goHome()">Home</a>
-        <a class="py-2 d-none d-md-inline-block" (click)="goQuienSoy()">Quien Soy</a>
-        <a class="py-2 d-none d-md-inline-block" (click)="goChat()">Chat</a>
-        <a class="py-2 d-none d-md-inline-block" (click)="goMayorMenor()">Mayor o Menor</a> 
-        <a class="py-2 d-none d-md-inline-block" (click)="goAhorcado()">Ahorcado</a> 
-        <a class="py-2 d-none d-md-inline-block" (click)="goPreguntados()">Preguntados</a> 
-        <a class="py-2 d-none d-md-inline-block" (click)="goJuegoPropio()">Juego Propio</a> 
+        <a class="py-2 d-none d-md-inline-block" type="button" (click)="goHome()">Home</a>
+        <a class="py-2 d-none d-md-inline-block" type="button" (click)="goQuienSoy()">Quien Soy</a>
+        <a class="py-2 d-none d-md-inline-block" type="button" (click)="goChat()">Chat</a>
+        <a class="py-2 d-none d-md-inline-block" type="button" (click)="goMayorMenor()">Mayor o Menor</a> 
+        <a class="py-2 d-none d-md-inline-block" type="button" (click)="goAhorcado()">Ahorcado</a> 
+        <a class="py-2 d-none d-md-inline-block" type="button" (click)="goPreguntados()">Preguntados</a> 
+        <a class="py-2 d-none d-md-inline-block" type="button" (click)="goJuegoPropio()">Juego Propio</a> 
         <a class="py-2 d-none d-md-inline-block">{{email}}</a>
-        <a class="py-2 d-none d-md-inline-block" (click)="logout()">Logout</a>
+        <a class="py-2 d-none d-md-inline-block" type="button" (click)="logout()">Logout</a>
       </ng-template>
     
     </div>

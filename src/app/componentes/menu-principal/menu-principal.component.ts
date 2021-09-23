@@ -22,14 +22,15 @@ export class MenuPrincipalComponent implements OnInit {
       if(res && res.uid){
         console.log(res.email);;
         this.logueado = true;
+        this.ls.set("UserMail", res.email);
         this.email = res.email || "";
-        
       }
     });
   }
 
   logout(){
     this.authSvc.onLogout();
+    this.ls.remove("UserMail");
     this.logueado = false;
   }
   goPreguntados(){

@@ -3,4 +3,5 @@ export class ChatMensaje {
     key!: string;
     fecha!: string;
     mensaje!:string;
+    usrActual!: boolean;
 }

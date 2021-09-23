@@ -1,18 +1,20 @@
 <div class="card mb-4 box-shadow">
     <div class="card-header">
-      <h4 class="my-0 font-weight-normal"></h4>
+      <h1 class="my-0 font-weight-normal text-center"><strong>MAYOR Y MENOR</strong></h1>
+      <img id="imgEmp" src="../../../assets/mayormenor/Ace of Clubs.png" *ngIf="!empezado">
     </div>
-    <div class="card-body col-3 align-self-center">
-      <h1 class="card-title pricing-card-title"><small class="text-muted"></small></h1>
-      <button type="button" class="btn btn-lg btn-block btn-outline-primary" id="empezar" [hidden]="empezado" (click)='empezar()'>Empezar</button>
+    <button type="button" class="btn btn-lg btn-block btn-primary" id="empezar" [hidden]="empezado" (click)='empezar()'>Empezar</button>
+    <div class="col-12" *ngIf="resultado">
+      <h1 class="text-center">{{mensaje}}</h1> 
+    </div>
+    <div class="card-body col-sm-6 align-self-center" *ngIf="empezado">
       <br>
-      <label>{{mensaje}}</label> 
-      <input [ngModel]="puntos">
+      <div class="col-12 text-center">
+        <h1>Puntos:</h1><h1>{{puntos}}</h1> 
+      </div>
       <br>
-      <input type="text" [(ngModel)]="carta.elemento">
-      <input type="text" [(ngModel)]="carta.numero">
-      
-      <button type="button" class="btn btn-lg btn-block btn-outline-primary" (click)='cartaMayor()'>Mayor</button>
-      <button type="button" class="btn btn-lg btn-block btn-outline-primary" (click)='cartaMenor()'>Menor</button>
+      <img id="carta" [src]="carta.src">
+      <button type="button" class="btn btn-lg btn-block alert-danger" (click)='cartaMayor()'>Mayor</button>
+      <button type="button" class="btn btn-lg btn-block alert-success" (click)='cartaMenor()'>Menor</button>
     </div>
   </div>

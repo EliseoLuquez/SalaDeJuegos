@@ -22,44 +22,68 @@ export class PreguntadosComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // this.traerPersonaje();
-    // this.traerPersonajes("4");
-    //this.validarRepetido(this.personaje.character);
-    //this.desordenarRespuestas();
-    this.tratarPersonajes();
-    
   }
 
-  tratarPersonajes(){
-    //console.log(this.traerPersonaje());
-    this.traerPersonaje();
-  }
-
-  traerPersonaje(){
+  async traerPersonaje(){
     this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
+      console.log(personaje[0]);
       this.personaje = personaje[0];
-      //document.querySelector("#personajeImg")?.setAttribute("src", this.personaje.image);
-      this.img = this.personaje.image;
-      //console.log(this.personaje);   
-      this.traerPersonajes("4");
-      //this.validarRepetido(this.personaje.character);
+      this.img = personaje[0].image;
+      this.arrayPersonajes.push(personaje[0]);
     },
     error => {
       console.log(error)}
     );
+    this.cargarPersonajes();
   }
 
-  traerPersonajes(num: string){
-    this.apiSvc.obtenerPersonajes(num).subscribe((personajes:any) =>{
-      //this.arrayPersonajes.push(personajes);
-      this.arrayPersonajes = personajes;
-      console.log(this.arrayPersonajes);
-    },
-    error => {console.log(error)}
-    );
-    //this.validarRepetido(this.personaje.character);
-    //this.desordenarRespuestas();
 
+  cargarPersonajes(){
+    this.arrayPersonajes = [];
+
+    let repetido1 = false;
+    let repetido2 = false;
+    let repetido3 = false;
+
+    this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
+      console.log(personaje[0]);
+      for (let index = 0; index < this.arrayPersonajes.length; index++) {
+        if(personaje[0].character != this.arrayPersonajes[index].character){
+          this.arrayPersonajes.push(personaje[0]);
+        }
+        repetido1 = true;
+      }
+    },
+    error => {
+      console.log(error)}
+    );
+
+    this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
+      console.log(personaje[0]);
+      for (let index = 0; index < this.arrayPersonajes.length; index++) {
+        if(personaje[0].character != this.arrayPersonajes[index].character){
+          this.arrayPersonajes.push(personaje[0]);
+        }
+      }
+    },
+    error => {
+      console.log(error)}
+    );
+
+    this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
+      console.log(personaje[0]);
+      for (let index = 0; index < this.arrayPersonajes.length; index++) {
+        if(personaje[0].character != this.arrayPersonajes[index].character){
+          this.arrayPersonajes.push(personaje[0]);
+        }
+      }
+    },
+    error => {
+      console.log(error)}
+    );
+
+    //this.validarRepetido(this.personaje.character);
+    this.desordenarRespuestas();
   }
 
   validarRepetido(personajeNombre: string){ 
@@ -67,8 +91,9 @@ export class PreguntadosComponent implements OnInit {
     console.log(this.arrayPersonajes);
     for (let index = 0; index < this.arrayPersonajes.length; index++) {
       if(personajeNombre == this.arrayPersonajes[index].character){
+        console.log(this.arrayPersonajes[index]);
         this.arrayPersonajes.splice(this.arrayPersonajes[index], 1);
-        console.log("personaje eliminado repetido" + this.arrayPersonajes[index]);
+        console.log("personaje eliminado repetido");
         
         eliminado = true;
         console.log(eliminado);
@@ -76,12 +101,14 @@ export class PreguntadosComponent implements OnInit {
     }
     //console.log(eliminado);
     if(!eliminado){
-      console.log("lista con personaje repetido eliminado" + this.arrayPersonajes);
+      console.log("lista con personaje repetido eliminado");
+      console.log(this.arrayPersonajes);
       this.arrayPersonajes.splice(this.arrayPersonajes[0], 1);
     }
     //console.log(this.arrayPersonajes);
     this.arrayPersonajes.push(this.personaje)
-    console.log("lista de personajes validada" +this.arrayPersonajes);
+    console.log("lista de personajes validada");
+    console.log(this.arrayPersonajes);
     
   }
 
@@ -91,16 +118,20 @@ export class PreguntadosComponent implements OnInit {
   }
 
   correcto(nombre:string){
+    console.log(this.personaje.character);
+    
     if(nombre == this.personaje.character){
       this.rtaCorrecta = true;
       this.mensaje = "Correcto!";
       console.log(this.mensaje);
     }
-    this.tratarPersonajes();
+
+    this.traerPersonaje();
   }
 
-  onEmpezar(){
+  async onEmpezar(){
     this.empezar = true;
+    this.traerPersonaje();
     this.validarRepetido(this.personaje.character);
   }
 }

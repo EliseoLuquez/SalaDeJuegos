@@ -23,6 +23,8 @@ export class AhorcadoComponent implements OnInit {
   arrayLetras: any = [];
   errores!: number;
   mensaje!: string;
+  empezado: boolean = false;
+  resultado: boolean = false;
 
   constructor(public router: Router, public authService: AuthService) { }
 
@@ -36,6 +38,8 @@ export class AhorcadoComponent implements OnInit {
     console.log(this.palabra);
     console.log(this.palabra + ' - ' + this.palabraEnGuiones);
     this.errores = 0;
+    this.empezado = true;
+    this.resultado = false;
     
   }
 
@@ -77,6 +81,8 @@ export class AhorcadoComponent implements OnInit {
 
     if(this.palabraEnGuiones.indexOf('_') < 0){
       this.mensaje = "Ganaste!!!";
+      this.empezado = false;
+      this.resultado = true;
     }
 
     
@@ -117,6 +123,8 @@ export class AhorcadoComponent implements OnInit {
       case 7:
         document.querySelector("#horca")?.setAttribute("src", "../../../assets/ahorcado/derrota.jpg");
         this.mensaje = "Perdiste!!!";
+        this.resultado = true;
+        this.empezado = false;
         break
     }
   }

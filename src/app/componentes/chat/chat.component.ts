@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit {
   msjs: any;
   lsUsuarioEmail!: any;
   usuarioActual: boolean = false;
+  mail!: string;
 
   constructor(public afAuth: AuthService, private chatSvc: ChatService, public router: Router, ls: LocalStorageService) {
     // let usuarioEmailLS = ls.get('UserMail');
@@ -29,12 +30,12 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMensajes();
-    this.userMail = this.afAuth.usuario.email.toString();
+    //this.userMail = this.afAuth.usuario.email.toString();
     if(this.lsUsuarioEmail.includes(this.userMail)){
       this.usuarioActual = true;
     }
     console.log(this.lsUsuarioEmail);
-    console.log(this.userMail);
+    // console.log(this.userMail);
     
   }
 
@@ -47,6 +48,19 @@ export class ChatComponent implements OnInit {
       )
     ).subscribe(mensajes => {
       this.msjs = mensajes;
+      this.msjs.forEach((element:any) =>{
+        // console.log(element.email.toString());
+        // console.log();
+        // this.mail = element.email;
+        // console.log(this.mail);
+        if(this.lsUsuarioEmail.includes(element.email)){
+          element.usrActual = true;
+          
+        }
+      });
+      
+      console.log(this.msjs);
+      
     });
   }
 
@@ -55,6 +69,7 @@ export class ChatComponent implements OnInit {
     msj.mensaje = this.msjUsuario;
     msj.fecha = new Date().toLocaleString();
     msj.email = this.afAuth.usuario.email;
+    msj.usrActual = false;
     this.chatSvc.addMensaje(msj);
     this.msjUsuario = "";
   }

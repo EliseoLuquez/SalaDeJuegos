@@ -1,31 +1,51 @@
-<h1>Juego Propio</h1>
-<label>Puntos:</label>
-<label>{{puntaje}}</label>
-<div  id="empezar">
-  <button (click)="empezar()">Empezar</button>
+<div class="text-center">
+  <h1>FLECHAS</h1>
 </div>
-<div id="ahorcado">
-  <!-- <img  src="../../../assets/flechas/arriba.png"> -->
-  <img id="img" [src]="getImage()" alt="" *ngIf="empezado"> 
-</div>
+
 <div class="container">
-  <div class="align-items-center">
-    <a class="btn btn-info btn-lg" (click)="onArriba()">
-      <span class="glyphicon glyphicon-arrow-up"></span>
-    </a>
-    
-    <div class="row">
-      <a class="btn btn-info btn-lg" (click)="onIzquierda()">
-        <span class="glyphicon glyphicon-arrow-left"></span>
-      </a>
-      <a class="btn btn-info btn-lg" (click)="onDerecha()">
-        <span class="glyphicon glyphicon-arrow-right"></span>
-      </a>
+  <div class="row">
+    <div class="col-12">
+      <div id="empezar">
+        <button class="btn btn-success btn-block" (click)="empezar()">Empezar</button>
+      </div>
+      <div *ngIf="empezado">
+          <h2>Puntos:</h2>
+          <h2>{{puntaje}}</h2>  
+
+        <!-- <img  src="../../../assets/flechas/arriba.png"> -->
+        <img id="img" [src]="getImage()" alt=""> 
+        <div class="container">
+                <div class="row">
+                  <div class="col text-center">
+                    <a class="btn btn-info btn-lg justify-content-center" (click)="onArriba()">
+                      <span class="glyphicon glyphicon-arrow-up"></span>
+                    </a>
+                  </div>
+                </div>
+                <br>
+              <div class="row justify-content-center">
+                <div class="co-12">
+                  <div class="col-sm-4">
+                    <a class="btn btn-info btn-lg" (click)="onIzquierda()">
+                      <span class="glyphicon glyphicon-arrow-left"></span>
+                    </a>
+                  </div>
+                  <div class="col-sm-4">
+                    <a class="btn btn-info btn-lg" (click)="onAbajo()">
+                      <span class="glyphicon glyphicon-arrow-down"></span>
+                    </a>
+                  </div>
+                  <div class="col-sm-4">
+                    <a class="btn btn-info btn-lg" (click)="onDerecha()">
+                      <span class="glyphicon glyphicon-arrow-right"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+      </div>
     </div>
-    
-  <a class="btn btn-info btn-lg" (click)="onAbajo()">
-    <span class="glyphicon glyphicon-arrow-down"></span>
-  </a>
   </div>
 </div>
 

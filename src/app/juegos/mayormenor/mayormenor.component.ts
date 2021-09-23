@@ -11,62 +11,67 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class MayormenorComponent implements OnInit {
 
- carta = {elemento: '', numero: ''}
- cartaSiguiente = {elemento: '', numero: ''};
+ carta = {src: '', numero: ''}
+ cartaSiguiente = {src: '', numero: ''};
  cartasAux: any;
  cartas = [
-    {"elemento": "Basto", "numero": 1},
-    {"elemento": "Basto", "numero": 2},
-    {"elemento": "Basto", "numero": 3},
-    {"elemento": "Basto", "numero": 4},
-    {"elemento": "Basto", "numero": 5},
-    {"elemento": "Basto", "numero": 6},
-    {"elemento": "Basto", "numero": 7},
-    {"elemento": "Basto", "numero": 8},
-    {"elemento": "Basto", "numero": 9},
-    {"elemento": "Basto", "numero": 10},
-    {"elemento": "Basto", "numero": 11},
-    {"elemento": "Basto", "numero": 12},
-    {"elemento": "Oro", "numero": 1},
-    {"elemento": "Oro", "numero": 2},
-    {"elemento": "Oro", "numero": 3},
-    {"elemento": "Oro", "numero": 4},
-    {"elemento": "Oro", "numero": 5},
-    {"elemento": "Oro", "numero": 6},
-    {"elemento": "Oro", "numero": 7},
-    {"elemento": "Oro", "numero": 8},
-    {"elemento": "Oro", "numero": 9},
-    {"elemento": "Oro", "numero": 10},
-    {"elemento": "Oro", "numero": 11},
-    {"elemento": "Oro", "numero": 12},
-    {"elemento": "Espada", "numero": 1},
-    {"elemento": "Espada", "numero": 2},
-    {"elemento": "Espada", "numero": 3},
-    {"elemento": "Espada", "numero": 4},
-    {"elemento": "Espada", "numero": 5},
-    {"elemento": "Espada", "numero": 6},
-    {"elemento": "Espada", "numero": 7},
-    {"elemento": "Espada", "numero": 8},
-    {"elemento": "Espada", "numero": 9},
-    {"elemento": "Espada", "numero": 10},
-    {"elemento": "Espada", "numero": 11},
-    {"elemento": "Espada", "numero": 12},
-    {"elemento": "Copa", "numero": 1},
-    {"elemento": "Copa", "numero": 2},
-    {"elemento": "Copa", "numero": 3},
-    {"elemento": "Copa", "numero": 4},
-    {"elemento": "Copa", "numero": 5},
-    {"elemento": "Copa", "numero": 6},
-    {"elemento": "Copa", "numero": 7},
-    {"elemento": "Copa", "numero": 8},
-    {"elemento": "Copa", "numero": 9},
-    {"elemento": "Copa", "numero": 10},
-    {"elemento": "Copa", "numero": 11},
-    {"elemento": "Copa", "numero": 12},
+    {"src": "../../../assets/mayormenor/Ace of Clubs.png", "numero": 1},
+    {"src": "../../../assets/mayormenor/Two of Club", "numero": 2},
+    {"src": "../../../assets/mayormenor/Three of Clubs", "numero": 3},
+    {"src": "../../../assets/mayormenor/Four of Clubs.png", "numero": 4},
+    {"src": "../../../assets/mayormenor/Five of Clubs.png", "numero": 5},
+    {"src": "../../../assets/mayormenor/Six of Clubs.png", "numero": 6},
+    {"src": "../../../assets/mayormenor/Seven of Clubs.png", "numero": 7},
+    {"src": "../../../assets/mayormenor/Eight of Clubs", "numero": 8},
+    {"src": "../../../assets/mayormenor/Nine of Clubs.png", "numero": 9},
+    {"src": "../../../assets/mayormenor/Ten of Clubs.png", "numero": 10},
+    {"src": "../../../assets/mayormenor/Jack of Clubs.png", "numero": 11},
+    {"src": "../../../assets/mayormenor/Queen of Clubs.png", "numero": 12},
+    {"src": "../../../assets/mayormenor/King of Clubs.png", "numero": 13},
+    {"src": "../../../assets/mayormenor/Ace of Diamonds.png", "numero": 1},
+    {"src": "../../../assets/mayormenor/Two of Diamonds.png", "numero": 2},
+    {"src": "../../../assets/mayormenor/Three of Diamonds.png", "numero": 3},
+    {"src": "../../../assets/mayormenor/Four of Diamonds.png", "numero": 4},
+    {"src": "../../../assets/mayormenor/Five of Diamonds.png", "numero": 5},
+    {"src": "../../../assets/mayormenor/Six of Diamonds.png", "numero": 6},
+    {"src": "../../../assets/mayormenor/Seven of Diamonds.png", "numero": 7},
+    {"src": "../../../assets/mayormenor/Eight of Diamonds.png", "numero": 8},
+    {"src": "../../../assets/mayormenor/Nine of Diamonds.png", "numero": 9},
+    {"src": "../../../assets/mayormenor/Ten of Diamonds.png", "numero": 10},
+    {"src": "../../../assets/mayormenor/Jack of Diamonds.png", "numero": 11},
+    {"src": "../../../assets/mayormenor/Queen of Diamonds.png", "numero": 12},
+    {"src": "../../../assets/mayormenor/King of Diamonds.png", "numero": 13},
+    {"src": "../../../assets/mayormenor/Ace of Spades.png", "numero": 1},
+    {"src": "../../../assets/mayormenor/Two of Spades.png", "numero": 3},
+    {"src": "../../../assets/mayormenor/Three of Spades.png", "numero": 2},
+    {"src": "../../../assets/mayormenor/Four of Spades.png", "numero": 4},
+    {"src": "../../../assets/mayormenor/Five of Spades.png", "numero": 5},
+    {"src": "../../../assets/mayormenor/Six of Spades.png", "numero": 6},
+    {"src": "../../../assets/mayormenor/Seven of Spades.png", "numero": 7},
+    {"src": "../../../assets/mayormenor/Eight of Spades.png", "numero": 8},
+    {"src": "../../../assets/mayormenor/Nine of Spades.png", "numero": 9},
+    {"src": "../../../assets/mayormenor/Ten of Spades.png", "numero": 10},
+    {"src": "../../../assets/mayormenor/Jack of Spades.png", "numero": 11},
+    {"src": "../../../assets/mayormenor/Quenn of Spades.png", "numero": 12},
+    {"src": "../../../assets/mayormenor/King of Spades.png", "numero": 13},
+    {"src": "../../../assets/mayormenor/Ace of Hearts.png", "numero": 1},
+    {"src": "../../../assets/mayormenor/Two of Hearts.png", "numero": 2},
+    {"src": "../../../assets/mayormenor/Three of Hearts.png", "numero": 3},
+    {"src": "../../../assets/mayormenor/Four of Hearts.png", "numero": 4},
+    {"src": "../../../assets/mayormenor/Five of Hearts.png", "numero": 5},
+    {"src": "../../../assets/mayormenor/Six of Hearts.png", "numero": 6},
+    {"src": "../../../assets/mayormenor/Seven of Hearts.png", "numero": 7},
+    {"src": "../../../assets/mayormenor/Eight of Hearts.png", "numero": 8},
+    {"src": "../../../assets/mayormenor/Nine of Hearts.png", "numero": 9},
+    {"src": "../../../assets/mayormenor/Ten of Hearts.png", "numero": 10},
+    {"src": "../../../assets/mayormenor/Jack of Hearts.png", "numero": 11},
+    {"src": "../../../assets/mayormenor/Queen of Hearts.png", "numero": 12},
+    {"src": "../../../assets/mayormenor/King of Hearts.png", "numero": 13}
   ];
   mensaje!: string;
   puntos!: number;
   empezado: boolean = false;
+  resultado: boolean = false;
 
   constructor(public router: Router, public authService: AuthService) { }
 
@@ -78,24 +83,27 @@ export class MayormenorComponent implements OnInit {
   empezar(){
       this.cartasAux = this.cartas.slice();
       var i = Math.floor(Math.random()* this.cartasAux.length);
-      this.carta.elemento = this.cartasAux[i].elemento;
+      // this.carta.elemento = this.cartasAux[i].elemento;
+      // this.carta.numero = this.cartasAux[i].numero;
+
+      this.carta.src = this.cartasAux[i].src;
       this.carta.numero = this.cartasAux[i].numero;
-      //this.cartasAux[0].splice(i, 1);
-      //console.log(this.cartasAux[i]);
       delete this.cartasAux[0]['i'];
       this.puntos = 0;
       this.empezado = true;
+      this.resultado = false;
   }
 
   proximaCarta(){
     if(this.cartasAux.length > 0){
       var i = Math.floor(Math.random()* this.cartasAux.length);
-      this.cartaSiguiente.elemento = this.cartasAux[i].elemento;
+      this.cartaSiguiente.src = this.cartasAux[i].src;
       this.cartaSiguiente.numero = this.cartasAux[i].numero;
       delete this.cartasAux[i];
     }
     else{
       this.mensaje = "Ganaste!";
+      this.resultado = true;
     }
   }
  
@@ -111,9 +119,10 @@ export class MayormenorComponent implements OnInit {
       this.mensaje = "Perdiste!";
       this.puntos = 0;
       this.empezado = false;
+      this.resultado = true;
     }
     this.carta.numero = this.cartaSiguiente.numero;
-    this.carta.elemento = this.cartaSiguiente.elemento;
+    this.carta.src = this.cartaSiguiente.src;
     
     
     
@@ -133,9 +142,10 @@ export class MayormenorComponent implements OnInit {
       this.mensaje = "Perdiste!";
       this.puntos = 0;
       this.empezado = false;
+      this.resultado = true;
     }
     this.carta.numero = this.cartaSiguiente.numero;
-    this.carta.elemento = this.cartaSiguiente.elemento;
+    this.carta.src = this.cartaSiguiente.src;
     
     
   }

@@ -26,4 +26,23 @@ export class HomeComponent implements OnInit {
   //       this.logueado = true;
   //   }
   }
+
+  goPreguntados(){
+    this.router.navigate(['juegos/preguntados']);
+  }
+  goMayorMenor(){
+    this.router.navigate(['juegos/mayormenor']);
+  }
+  goAhorcado(){
+    this.router.navigate(['juegos/ahorcado']);
+  }
+  goChat(){
+    this.router.navigate(['chat']);
+  }
+  goQuienSoy(){
+    this.router.navigate(['quienSoy']);
+  }
+  goJuegoPropio(){
+    this.router.navigate(['juegos/juegoPropio']);
+  }
 }
