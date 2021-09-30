@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { JuegosModule } from './juegos/juegos.module';
 import { IngresoModule } from './ingreso/ingreso.module';
 import { ChatComponent } from './componentes/chat/chat.component';
+import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
 
 const routes: Routes = [
   {path:'home', component:HomeComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   //{path:'**', component:ErrorComponent},
   {path:'', redirectTo:'home', pathMatch: 'full'},
   {path: 'juegos', loadChildren: () => import('./juegos/juegos.module').then(m => JuegosModule), canActivate: [AuthGuard]},
+  {path:'encuesta', component:EncuestaComponent, canActivate: [AuthGuard]},
 
 ];
 

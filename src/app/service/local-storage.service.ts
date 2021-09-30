@@ -12,15 +12,15 @@ export class LocalStorageService {
       localStorage.setItem(key, JSON.stringify(data));
     } catch (error) {
       console.log(error);
-      
     }
   }
 
   get(key: string){
- 
-      return localStorage.getItem(key);
-
-   
+    let usuario = localStorage.getItem(key);
+    if(usuario)
+    {
+      return JSON.parse(usuario);
+    }
   }
 
   remove(key: string){

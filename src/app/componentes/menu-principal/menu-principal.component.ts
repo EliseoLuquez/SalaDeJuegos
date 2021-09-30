@@ -14,23 +14,24 @@ export class MenuPrincipalComponent implements OnInit {
   //usuario!: User;
   logueado: boolean = false;
   email!: string;
+  usuario: User = new User();
 
-  constructor(public router: Router, public authSvc: AuthService, private ls: LocalStorageService) { }
+  constructor(public router: Router, public authSvc: AuthService, private ls: LocalStorageService) {
+    
+   }
 
   ngOnInit(): void {
-    this.authSvc.afAuth.authState.subscribe(res=>{
-      if(res && res.uid){
-        console.log(res.email);;
-        this.logueado = true;
-        this.ls.set("UserMail", res.email);
-        this.email = res.email || "";
-      }
-    });
+    this.usuario = JSON.parse(this.ls.get('usuarioLs'));
+    if(this.usuario){
+      this.logueado = true;
+      this.usuario.logueado = true;
+      console.log(this.logueado);
+    }
   }
 
   logout(){
     this.authSvc.onLogout();
-    this.ls.remove("UserMail");
+    this.ls.remove("usuarioLs");
     this.logueado = false;
   }
   goPreguntados(){
@@ -53,6 +54,9 @@ export class MenuPrincipalComponent implements OnInit {
   }
   goJuegoPropio(){
     this.router.navigate(['juegos/juegoPropio']);
+  }
+  goEncuesta(){
+    this.router.navigate(['encuesta']);
   }
 
 }

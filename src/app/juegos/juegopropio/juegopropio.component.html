@@ -8,10 +8,32 @@
       <div id="empezar">
         <button class="btn btn-success btn-block" (click)="empezar()">Empezar</button>
       </div>
+      <div class="row" *ngIf="tiempoTerminado">
+        <div class="col-4">
+          <h2>Puntos:</h2>
+        </div>
+        <div class="col-4">
+          <h2>{{puntaje}}</h2>  
+        </div>
+        <div class="col-12">
+          <div *ngFor="let puntaje of listaOrdenada">
+            <div class="row">
+              <div class="col-4">
+                <h4>{{puntaje.usuario}}</h4>
+              </div>
+              <div class="col-4">
+                <h4>{{puntaje.puntos}}</h4>  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div *ngIf="empezado">
           <h2>Puntos:</h2>
           <h2>{{puntaje}}</h2>  
-
+          <p>{{timeLeft}} Seconds Left....</p>
+          <!-- <button (click)='startTimer()'>Start Timer</button>
+          <button (click)='pauseTimer()'>Pause</button> -->
         <!-- <img  src="../../../assets/flechas/arriba.png"> -->
         <img id="img" [src]="getImage()" alt=""> 
         <div class="container">
@@ -42,7 +64,6 @@
                   </div>
                 </div>
               </div>
-
         </div>
       </div>
     </div>

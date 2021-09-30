@@ -20,10 +20,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
   //   console.log(this.authSvc.usuario.logueado);
-     this.usuario = this.authSvc.logueado;
-     console.log(this.usuario);
+    //  this.usuario = this.authSvc.logueado;
+    //  console.log(this.usuario);
   //     if(this.usuario.email == this.ls.get('UserMail')){
   //       this.logueado = true;
+  //   }
+  // this.usuario = JSON.parse(this.ls.get('usuarioLs'));
+  //   if(this.usuario){
+  //     this.logueado = true;
+  //     this.usuario.logueado = true;
+  //     console.log(this.logueado);
   //   }
   }
 

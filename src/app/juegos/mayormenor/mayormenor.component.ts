@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { IngresoModule } from 'src/app/ingreso/ingreso.module';
 import { AuthService } from 'src/app/service/auth.service';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
+import { PuntajesService } from 'src/app/service/puntajes.service';
+import { Puntos } from 'src/app/shared/puntos';
+import { User } from 'src/app/shared/user';
 
 
 @Component({
@@ -16,13 +22,13 @@ export class MayormenorComponent implements OnInit {
  cartasAux: any;
  cartas = [
     {"src": "../../../assets/mayormenor/Ace of Clubs.png", "numero": 1},
-    {"src": "../../../assets/mayormenor/Two of Club", "numero": 2},
-    {"src": "../../../assets/mayormenor/Three of Clubs", "numero": 3},
+    {"src": "../../../assets/mayormenor/Two of Clubs.png", "numero": 2},
+    {"src": "../../../assets/mayormenor/Three of Clubs.png", "numero": 3},
     {"src": "../../../assets/mayormenor/Four of Clubs.png", "numero": 4},
     {"src": "../../../assets/mayormenor/Five of Clubs.png", "numero": 5},
     {"src": "../../../assets/mayormenor/Six of Clubs.png", "numero": 6},
     {"src": "../../../assets/mayormenor/Seven of Clubs.png", "numero": 7},
-    {"src": "../../../assets/mayormenor/Eight of Clubs", "numero": 8},
+    {"src": "../../../assets/mayormenor/Eight of Clubs.png", "numero": 8},
     {"src": "../../../assets/mayormenor/Nine of Clubs.png", "numero": 9},
     {"src": "../../../assets/mayormenor/Ten of Clubs.png", "numero": 10},
     {"src": "../../../assets/mayormenor/Jack of Clubs.png", "numero": 11},
@@ -52,7 +58,7 @@ export class MayormenorComponent implements OnInit {
     {"src": "../../../assets/mayormenor/Nine of Spades.png", "numero": 9},
     {"src": "../../../assets/mayormenor/Ten of Spades.png", "numero": 10},
     {"src": "../../../assets/mayormenor/Jack of Spades.png", "numero": 11},
-    {"src": "../../../assets/mayormenor/Quenn of Spades.png", "numero": 12},
+    {"src": "../../../assets/mayormenor/Queen of Spades.png", "numero": 12},
     {"src": "../../../assets/mayormenor/King of Spades.png", "numero": 13},
     {"src": "../../../assets/mayormenor/Ace of Hearts.png", "numero": 1},
     {"src": "../../../assets/mayormenor/Two of Hearts.png", "numero": 2},
@@ -72,26 +78,31 @@ export class MayormenorComponent implements OnInit {
   puntos!: number;
   empezado: boolean = false;
   resultado: boolean = false;
+  listaPuntajes: Array<Puntos> = new Array<Puntos>();
+  puntosAux!: number;
+  listaOrdenada: Array<Puntos> = new Array<Puntos>();
+  usuario: User = new User();
 
-  constructor(public router: Router, public authService: AuthService) { }
+  constructor(public router: Router, public authService: AuthService, public puntajeSvc: PuntajesService, public ls: LocalStorageService) {
+    this.puntajeSvc.cargarPuntajesMM();
+   }
 
   ngOnInit(): void {
-    console.log(this.authService.usuario.logueado);
-    
+    this.usuario = JSON.parse(this.ls.get('usuarioLs'));
   }
 
   empezar(){
       this.cartasAux = this.cartas.slice();
       var i = Math.floor(Math.random()* this.cartasAux.length);
-      // this.carta.elemento = this.cartasAux[i].elemento;
-      // this.carta.numero = this.cartasAux[i].numero;
 
       this.carta.src = this.cartasAux[i].src;
       this.carta.numero = this.cartasAux[i].numero;
       delete this.cartasAux[0]['i'];
       this.puntos = 0;
+      this.puntosAux = 0;
       this.empezado = true;
       this.resultado = false;
+
   }
 
   proximaCarta(){
@@ -103,7 +114,10 @@ export class MayormenorComponent implements OnInit {
     }
     else{
       this.mensaje = "Ganaste!";
+      this.puntosAux = this.puntos;
       this.resultado = true;
+      this.addPuntaje(this.usuario.id, this.usuario.email, this.puntosAux);
+      this.cargarPuntajes();
     }
   }
  
@@ -117,15 +131,17 @@ export class MayormenorComponent implements OnInit {
     else{
       console.log('Perdiste!');
       this.mensaje = "Perdiste!";
+      this.puntosAux = this.puntos;
       this.puntos = 0;
       this.empezado = false;
       this.resultado = true;
+      console.log(this.puntos);
+      this.addPuntaje(this.usuario.id, this.usuario.email, this.puntosAux);
+      this.cargarPuntajes();
     }
     this.carta.numero = this.cartaSiguiente.numero;
     this.carta.src = this.cartaSiguiente.src;
-    
-    
-    
+  
   }
 
   cartaMenor(){
@@ -140,14 +156,33 @@ export class MayormenorComponent implements OnInit {
     else{
       console.log('Perdiste!');
       this.mensaje = "Perdiste!";
+      this.puntosAux = this.puntos;
       this.puntos = 0;
       this.empezado = false;
       this.resultado = true;
+
+      console.log(this.puntos);
+      
+      this.addPuntaje(this.usuario.id, this.usuario.email, this.puntosAux);
+      this.cargarPuntajes();
     }
     this.carta.numero = this.cartaSiguiente.numero;
     this.carta.src = this.cartaSiguiente.src;
+  }
+
+  cargarPuntajes(){
+    this.listaPuntajes = [];
+    //console.log(this.listaPuntajes);
     
-    
+    this.puntajeSvc.puntajes.subscribe((puntaje:any) =>{
+      this.listaPuntajes = puntaje;
+      this.listaOrdenada = this.listaPuntajes.slice(0, 10);
+      console.log(this.listaPuntajes);
+    });
+  }
+
+  addPuntaje(usuarioId: string, usuario: string, puntaje: number){
+    this.puntajeSvc.addPuntaje(usuarioId, usuario, puntaje, this.puntajeSvc.puntajesCollectionMM);
   }
 
 }

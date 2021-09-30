@@ -9,7 +9,12 @@
         <img id="horca" src="../../../assets/ahorcado/ahorcado.jpg">
       </div>
       <div id="empezar" *ngIf="!empezado">
-        <button class="btn btn-lg alert-danger" (click)="empezar()"><strong>EMPEZAR</strong></button>
+        <div id="empezar" *ngIf="!palabraCompletada || juegoCompletado">
+          <button class="btn btn-lg alert-danger" (click)="empezar()"><strong>EMPEZAR</strong></button>
+        </div>
+        <div id="empezar" *ngIf="palabraCompletada">
+          <button class="btn btn-lg alert-danger" (click)="empezar()"><strong>SIGUIENTE PALABRA</strong></button>
+        </div>
       </div>
     </div>
     <div class="col-6">
@@ -25,6 +30,24 @@
             </div>
       </div>
     </div>
+    
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-12" *ngIf="resultado">
+      <h1 class="text-center">Puntos: {{puntosAux}}</h1> 
+      <div *ngFor="let puntaje of listaOrdenada">
+        <div class="row">
+          <div class="col-6">
+            <h4>{{puntaje.usuario}}</h4>
+          </div>
+          <div class="col-6">
+            <h4>{{puntaje.puntos}}</h4>  
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

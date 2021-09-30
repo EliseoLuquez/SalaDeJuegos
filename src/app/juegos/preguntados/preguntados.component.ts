@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiSimpsonService } from 'src/app/service/api-simpson.service';
 import { AuthService } from 'src/app/service/auth.service';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
+import { PuntajesService } from 'src/app/service/puntajes.service';
+import { Puntos } from 'src/app/shared/puntos';
+import { User } from 'src/app/shared/user';
 
 @Component({
   selector: 'app-preguntados',
@@ -17,16 +21,26 @@ export class PreguntadosComponent implements OnInit {
   arrayPersonajes: any = [];
   empezar: boolean = false;
   img: any;
-  constructor(private apiSvc: ApiSimpsonService,public router: Router, public authService: AuthService) {
+  puntos!: number;
+  puntosAux!: number;
+  listaPuntajes: Array<Puntos> = new Array<Puntos>();
+  listaOrdenada: Array<Puntos> = new Array<Puntos>();
+  usuario: User = new User();
+  ordenadas: boolean = false;
+  juegoTerminado: boolean = false;
+  correcta: boolean = false;
 
+
+  constructor(private apiSvc: ApiSimpsonService,public router: Router, public authService: AuthService, public puntajeSvc: PuntajesService,  public ls: LocalStorageService) {
+    this.puntajeSvc.cargarPuntajesPgts();
    }
 
   ngOnInit(): void {
+    this.usuario = JSON.parse(this.ls.get('usuarioLs'));
   }
 
   async traerPersonaje(){
     this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
-      console.log(personaje[0]);
       this.personaje = personaje[0];
       this.img = personaje[0].image;
       this.arrayPersonajes.push(personaje[0]);
@@ -42,12 +56,6 @@ export class PreguntadosComponent implements OnInit {
     this.arrayPersonajes = [];
 
     this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
-      // console.log(personaje[0]);
-      // for (let index = 0; index < this.arrayPersonajes.length; index++) {
-      //   if(personaje[0].character != this.arrayPersonajes[index].character){
-      //     this.arrayPersonajes.push(personaje[0]);
-      //   }
-      // }
       this.arrayPersonajes.push(personaje[0]);
     },
     error => {
@@ -55,12 +63,6 @@ export class PreguntadosComponent implements OnInit {
     );
 
     this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
-      // console.log(personaje[0]);
-      // for (let index = 0; index < this.arrayPersonajes.length; index++) {
-      //   if(personaje[0].character != this.arrayPersonajes[index].character){
-      //     this.arrayPersonajes.push(personaje[0]);
-      //   }
-      // }
       this.arrayPersonajes.push(personaje[0]);
     },
     error => {
@@ -68,20 +70,17 @@ export class PreguntadosComponent implements OnInit {
     );
 
     this.apiSvc.obtenerPersonaje().subscribe((personaje:any) =>{
-      console.log(personaje[0]);
-      // for (let index = 0; index < this.arrayPersonajes.length; index++) {
-      //   if(personaje[0].character != this.arrayPersonajes[index].character){
-      //     this.arrayPersonajes.push(personaje[0]);
-      //   }
-      // }
       this.arrayPersonajes.push(personaje[0]);
     },
     error => {
       console.log(error)}
     );
-
-    //this.validarRepetido(this.personaje.character);
-    this.desordenarRespuestas();
+    setTimeout(() => {
+      //this.validarRepetido(this.personaje.character);
+      this.desordenarRespuestas();
+      this.ordenadas = true;
+    }, 500);
+    
   }
 
   validarRepetido(personajeNombre: string){ 
@@ -116,12 +115,23 @@ export class PreguntadosComponent implements OnInit {
   }
 
   correcto(nombre:string){
-    console.log(this.personaje.character);
-    
     if(nombre == this.personaje.character){
       this.rtaCorrecta = true;
       this.mensaje = "Correcto!";
-      console.log(this.mensaje);
+      this.puntos += 10;
+      this.puntosAux = this.puntos;
+      this.correcta = true;
+    }
+    else{
+      if(this.puntos > 0)
+      {
+        this.addPuntaje(this.usuario.id, this.usuario.email, this.puntosAux);
+      }
+      this.mensaje = "Perdiste!";
+      this.puntos = 0;
+      this.puntosAux = 0;
+      this.juegoTerminado = true;
+      this.correcta = false;
     }
 
     this.traerPersonaje();
@@ -129,7 +139,27 @@ export class PreguntadosComponent implements OnInit {
 
   async onEmpezar(){
     this.empezar = true;
+    this.juegoTerminado = false;
+    this.correcta = false;
     this.traerPersonaje();
+    this.puntos = 0;
+    this.puntosAux = 0;
+    this.cargarPuntajes();
     //this.validarRepetido(this.personaje.character);
+  }
+
+  cargarPuntajes(){
+    this.listaPuntajes = [];
+    //console.log(this.listaPuntajes);
+    
+    this.puntajeSvc.puntajes.subscribe((puntaje:any) =>{
+      this.listaPuntajes = puntaje;
+      this.listaOrdenada = this.listaPuntajes.slice(0, 10);
+      console.log(this.listaPuntajes);
+    });
+  }
+
+  addPuntaje(usuarioId: string, usuario: string, puntaje: number){
+    this.puntajeSvc.addPuntaje(usuarioId, usuario, puntaje, this.puntajeSvc.puntajesCollectionPgts);
   }
 }

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
+import { PuntajesService } from 'src/app/service/puntajes.service';
+import { Puntos } from 'src/app/shared/puntos';
+import { User } from 'src/app/shared/user';
 
 @Component({
   selector: 'app-juegopropio',
@@ -38,20 +42,27 @@ export class JuegopropioComponent implements OnInit {
   currentImage: any = "";
   puntaje: number = 0;
   empezado:boolean = false;
+  timeLeft: number = 60;
+  interval: any;
+  tiempoTerminado: boolean = false;
+  listaPuntajes: Array<Puntos> = new Array<Puntos>();
+  listaOrdenada: Array<Puntos> = new Array<Puntos>();
+  usuario: User = new User();
 
-  constructor(public router: Router, public authService: AuthService) { }
+  constructor(public router: Router, public authService: AuthService, public puntajeSvc: PuntajesService, public ls: LocalStorageService) { 
+    this.puntajeSvc.cargarPuntajesFchs();
+  }
 
   ngOnInit(): void {
-    // setInterval(() => {
-    //   //cada 5 segundos elegimos una imagen al azar
-    //   this.currentImage = this.updateRandomImage();
-    // }, 2000);
-    
+    this.usuario = JSON.parse(this.ls.get('usuarioLs'));
   }
 
   empezar(){
     this.currentImage = this.updateRandomImage();
     this.empezado = true;
+    this.tiempoTerminado = false;
+    this.puntaje = 0;
+    this.startTimer();
   }
 
   updateRandomImage() {
@@ -114,5 +125,47 @@ export class JuegopropioComponent implements OnInit {
       this.currentImage = this.updateRandomImage();
     }
   }
+
+ 
+
+startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.timeLeft = 60;
+        this.tiempoTerminado = true;
+        this.empezado = false;
+        console.log(this.puntaje);
+        if(this.tiempoTerminado){
+          this.pauseTimer();
+        }
+        if(this.puntaje > 0){
+          this.addPuntaje(this.usuario.id, this.usuario.email, this.puntaje);
+        }
+        this.cargarPuntajes();
+      }
+    },1000)
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+  cargarPuntajes(){
+    this.listaPuntajes = [];
+    this.puntajeSvc.puntajes.subscribe((puntaje:any) =>{
+      this.listaPuntajes = puntaje;
+      this.listaOrdenada = this.listaPuntajes.slice(0, 10);
+      console.log(this.listaPuntajes);
+    });
+  }
+
+  addPuntaje(usuarioId: string, usuario: string, puntaje: number){
+    this.puntajeSvc.addPuntaje(usuarioId, usuario, puntaje, this.puntajeSvc.puntajesCollectionFchs);
+  }
+
+
+
 
 }

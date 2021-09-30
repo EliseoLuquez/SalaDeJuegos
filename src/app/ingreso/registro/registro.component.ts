@@ -14,6 +14,7 @@ export class RegistroComponent implements OnInit {
   password: string = "";
   error: any;
   user: User = new User();
+  msjError!: string;
 
   constructor(public authSvc: AuthService, public router: Router) { }
 
@@ -26,10 +27,13 @@ export class RegistroComponent implements OnInit {
       this.user.email = this.email;
       this.user.password = this.password;
       await this.authSvc.onRegister(this.user);
-      console.log('registro exitoso');
+      if(this.authSvc.msjError != "")
+      {
+        this.msjError = this.authSvc.msjError;
+      }
     }
     catch(error){
-      this.error = error;
+      //this.error = error;
       console.log(error);
       
     }
