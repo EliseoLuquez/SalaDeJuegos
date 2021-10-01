@@ -49,7 +49,7 @@
                 El Telefono es requerido.
             </span>
             <span class="form-text text-danger"
-                *ngIf="formulario.get('telefono')?.hasError('maxLength') && formulario.get('telefono')?.touched">
+                *ngIf="formulario.get('telefono')?.hasError('telefonoLength') && formulario.get('telefono')?.touched">
                 El telefono debe tener máximo 10 caracteres.
             </span>
             <span class="form-text text-danger"
@@ -119,6 +119,6 @@
 
 
         <br>
-        <button type="submit" class="btn btn-primary" >Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="formulario.invalid">Enviar</button>
     </form>
 </div>

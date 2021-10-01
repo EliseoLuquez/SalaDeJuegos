@@ -18,16 +18,34 @@ export class MenuPrincipalComponent implements OnInit {
 
   constructor(public router: Router, public authSvc: AuthService, private ls: LocalStorageService) {
     
-   }
+  }
 
   ngOnInit(): void {
-    this.usuario = JSON.parse(this.ls.get('usuarioLs'));
-    if(this.usuario){
-      this.logueado = true;
-      this.usuario.logueado = true;
-      console.log(this.logueado);
-    }
+    // console.log(this.ls.get('usuarioLs'));
+    
+    // if(this.ls.get('usuarioLs') == null){
+    //   this.logueado = false;
+    //   this.usuario.logueado = false;;
+    // }
+    // else{
+    //   this.authSvc.logueado = true;
+    //   this.logueado = true;
+    //   this.usuario = JSON.parse(this.ls.get('usuarioLs'));
+      
+    // }
+    // console.log(this.logueado);
+    this.authSvc.afAuth.authState.subscribe(res=>{
+      if(res && res.uid){
+        console.log(res);;
+        this.logueado = true;
+        this.usuario.email = res.email || "";
+        //this.ls.set("usuarioLs", JSON.stringify(this.usuario));
+        this.email = res.email || "";
+      }
+
+    });
   }
+
 
   logout(){
     this.authSvc.onLogout();
@@ -57,6 +75,12 @@ export class MenuPrincipalComponent implements OnInit {
   }
   goEncuesta(){
     this.router.navigate(['encuesta']);
+  }
+  goLogin(){
+    this.router.navigate(['ingreso/login']);
+  }
+  goRegistro(){
+    this.router.navigate(['ingreso/registro']);
   }
 
 }

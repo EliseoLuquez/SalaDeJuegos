@@ -16,21 +16,9 @@ export class HomeComponent implements OnInit {
   usuario!: any;
   logueado: boolean = false;
   mensaje!: string;
-  constructor(public authSvc: AuthService, public router: Router, private ls: LocalStorageService) { }
+  constructor(public authSvc: AuthService, public router: Router, public ls: LocalStorageService) { }
 
   ngOnInit(): void {
-  //   console.log(this.authSvc.usuario.logueado);
-    //  this.usuario = this.authSvc.logueado;
-    //  console.log(this.usuario);
-  //     if(this.usuario.email == this.ls.get('UserMail')){
-  //       this.logueado = true;
-  //   }
-  // this.usuario = JSON.parse(this.ls.get('usuarioLs'));
-  //   if(this.usuario){
-  //     this.logueado = true;
-  //     this.usuario.logueado = true;
-  //     console.log(this.logueado);
-  //   }
   }
 
   goPreguntados(){

@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  public logueado: any = false;
+  public logueado: boolean = false;
   private dbPath:string = '/usuarios';
   public usuario: User = new User();
   usuariosRef!: AngularFirestoreCollection<any>;
@@ -31,9 +31,10 @@ export class AuthService {
    //login
    async onLogin(user: User)
    {
-         this.logueado = user;
+         this.usuario = user;
           return await this.afAuth.signInWithEmailAndPassword(user.email, user.password)
           .then((result) =>{
+            this.logueado = true;
             if(result.user?.uid){
               this.usuario.id = result.user.uid;
               console.log(this.usuario.id);
@@ -46,9 +47,9 @@ export class AuthService {
               this.usuario.logueado = true;
 
               this.ls.set('usuarioLs', JSON.stringify(this.usuario));
+              this.msjError = "";
+              this.router.navigate(['home']);
             }
-            this.msjError = "";
-            this.router.navigate(['home']);
           })
           .catch((res)=>{
             this.usuario.logueado = false;
@@ -81,7 +82,7 @@ export class AuthService {
               id: result.user.uid });
         }
         this.msjError = "";
-        this.router.navigateByUrl('home');
+        this.router.navigate(['home']);
       })
       .catch((res)=>{
         this.usuario.logueado = false;
@@ -102,6 +103,7 @@ export class AuthService {
     this.userMail = localStorage.getItem('usuarioLs') || "";
     if(this.usuario.email = this.userMail){
           this.afAuth.signOut();
+          this.logueado = false;
           localStorage.removeItem("usuarioLs");
           this.router.navigate(['home']);
         }

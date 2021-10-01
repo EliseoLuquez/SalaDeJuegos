@@ -22,7 +22,7 @@ export class EncuestaComponent implements OnInit {
       nombre:["", [Validators.required, this.validarNombre]],
       apellido:["", Validators.required],
       edad:["", [Validators.required, Validators.min(18), Validators.max(99)]],
-      telefono:["", [Validators.required, Validators.maxLength(10), this.validarTelefono]],
+      telefono:["", [Validators.required, Validators.maxLength(10), this.validarTelefono, this.validarTelefonoLenth]],
       pregUno:["", Validators.required],
       pregDos:["", Validators.required],
       pregTres:["", Validators.required]
@@ -60,10 +60,21 @@ export class EncuestaComponent implements OnInit {
   }
 
   validarTelefono(control: AbstractControl){
-    const numero = control.value;
-    const telefonoNumerico = parseInt(numero);
+    const telefono = control.value;
+    const telefonoNumerico = parseInt(telefono);
     if(!telefonoNumerico){
       return { telefonoNumerico: true };
+    }
+    return null;
+  }
+
+  validarTelefonoLenth(control: AbstractControl){
+    const telefono = control.value;
+    const telefonoLength = telefono.length;
+    console.log(telefono.length);
+    
+    if(telefonoLength > 10){
+      return { telefonoLength: true };
     }
     return null;
   }

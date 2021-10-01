@@ -15,14 +15,14 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       console.log(this.authSvc.usuario.logueado);
-      if(this.ls.get("UserMail")){
+      if(this.ls.get("usuarioLs")){
         return true;
       }
       // if(this.authSvc.usuario.logueado){
       //   return true;
       // }
       console.log('Acceso denegado!');
-      this.router.navigate(['home']); 
+      this.router.navigate(['ingreso/login']); 
       
     return false;
   }
