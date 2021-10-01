@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   goPreguntados(){
-    if(this.usuario){
+    if(this.authSvc.logueado){
       this.router.navigate(['juegos/preguntados']);
     }
     else{
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
     }
   }
   goMayorMenor(){
-    if(this.usuario){
+    if(this.authSvc.logueado){
     this.router.navigate(['juegos/mayormenor']);
   }
   else{
@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   }
   }
   goAhorcado(){
-    if(this.usuario){
+    if(this.authSvc.logueado){
     this.router.navigate(['juegos/ahorcado']);
   }
   else{
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
   }
   goChat(){
-    if(this.usuario){
+    if(this.authSvc.logueado){
     this.router.navigate(['chat']);
   }
   else{
@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
   }
   }
   goQuienSoy(){
-    if(this.usuario){
+    if(this.authSvc.logueado){
     this.router.navigate(['quienSoy']);
   }
   else{
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
   }
   }
   goJuegoPropio(){
-    if(this.usuario){
+    if(this.authSvc.logueado){
     this.router.navigate(['juegos/juegoPropio']);
   }
   else{
